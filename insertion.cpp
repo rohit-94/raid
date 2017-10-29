@@ -4,7 +4,7 @@ using namespace std;
 void insert(string filepath)
 {
 	//int extension=get_filename(filepath);
-	int parity_index=4,n=5;char parity;
+	int parity_index=0,n=5;unsigned char parity;
 	string destination_filepath1="/home/rohit/Dropbox/raid/raid_files/f1";
 	string destination_filepath2="/home/rohit/Dropbox/raid/raid_files/f2";
 	string destination_filepath3="/home/rohit/Dropbox/raid/raid_files/f3";
@@ -21,6 +21,7 @@ void insert(string filepath)
         printf("File open error");
         return;
     }   
+    cout<<endl;
 
     while(1)
     {
@@ -30,7 +31,7 @@ void insert(string filepath)
 
         if(nread > 0)
         {
-        	parity=buff[0]^buff[1]^buff[3]^buff[4];
+        	parity=buff[0]^buff[1]^buff[2]^buff[3];
         	int j=0;
         	for(int i=0;i<n;i++)
         	{
@@ -39,62 +40,75 @@ void insert(string filepath)
         			case 0:if(i==parity_index)
         					{
         						fwrite(&parity,1,1 ,f1);
-        						parity_index=(parity_index-1)%n;
+        						//parity_index=(parity_index-1)%n;
+        						cout<<"file "<<i<<"   parity"<<": "<<parity<<endl;
         					}
         					else
         						{
         							fwrite(buff+j,1,1 ,f1);
         							j++;
+        							cout<<"file "<<i<<"   buff "<<j<<": "<<buff[j-1]<<endl;
         						}
         					break;
         			case 1:if(i==parity_index)
         					{
         						fwrite(&parity,1,1 ,f2);
-        						parity_index=(parity_index-1)%n;
+        						//parity_index=(parity_index-1)%n;
+        						cout<<"file "<<i<<"   parity"<<": "<<parity<<endl;
         					}
         					else
         						{
         							fwrite(buff+j,1,1 ,f2);
         							j++;
+        							cout<<"file "<<i<<"   buff "<<j<<": "<<buff[j-1]<<endl;
         						}
         					break;
         			case 2:if(i==parity_index)
         					{
         						fwrite(&parity,1,1 ,f3);
-        						parity_index=(parity_index-1)%n;
+        						//parity_index=(parity_index-1)%n;
+        						cout<<"file "<<i<<"   parity"<<": "<<parity<<endl;
         					}
         					else
         						{
         							fwrite(buff+j,1,1 ,f3);
         							j++;
+        							cout<<"file "<<i<<"   buff "<<j<<": "<<buff[j-1]<<endl;
         						}
         					break;
         			case 3:if(i==parity_index)
         					{
         						fwrite(&parity,1,1 ,f4);
-        						parity_index=(parity_index-1)%n;
+        						//parity_index=(parity_index-1)%n;
+        						cout<<"file "<<i<<"   parity"<<": "<<parity<<endl;
         					}
         					else
         						{
         							fwrite(buff+j,1,1 ,f4);
         							j++;
+        							cout<<"file "<<i<<"   buff "<<j<<": "<<buff[j-1]<<endl;
         						}
         					break;
         			case 4:if(i==parity_index)
         					{
         						fwrite(&parity,1,1 ,f5);
-        						parity_index=(parity_index-1)%n;
+        						//parity_index=(parity_index-1)%n;
+        						cout<<"file "<<i<<"   parity"<<": "<<parity<<endl;
         					}
         					else
-        						{
-        							fwrite(buff+j,1,1 ,f5);
-        							j++;
-        						}
+    						{
+    							fwrite(buff+j,1,1 ,f5);
+    							j++;
+    							cout<<"file "<<i<<"   buff "<<j<<": "<<buff[j-1]<<endl;
+    						}
         					break;
         			default:break;
 
-        		}
-        	}        	
+        		}	
+        	}
+        	cout<<"******************************************"<<endl;
+
+        	parity_index=(parity_index+1)%n;        	
 
         }
         if (nread < 4)
